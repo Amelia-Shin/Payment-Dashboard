@@ -1,5 +1,6 @@
 import SummaryBanner from "./SummaryBanner";
 import MetricsCards from "./MetricsCards";
+import PaymentMethodStats from "./PaymentMethodStats";
 
 import type {
   MerchantStats,
@@ -18,6 +19,7 @@ interface DashboardViewProps {
 export default function DashboardView({
   merchantStats,
   paymentStats,
+  payments,
 }: DashboardViewProps) {
   return (
     <div className="space-y-6">
@@ -27,6 +29,10 @@ export default function DashboardView({
       />
 
       <MetricsCards paymentStats={paymentStats} />
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <PaymentMethodStats payments={payments} />
+      </div>
     </div>
   );
 }
