@@ -1,4 +1,5 @@
 import SummaryBanner from "./SummaryBanner";
+import MetricsCards from "./MetricsCards";
 
 import type {
   MerchantStats,
@@ -24,6 +25,8 @@ export default function DashboardView({
         paymentStats={paymentStats}
         merchantStats={merchantStats}
       />
+
+      <MetricsCards paymentStats={paymentStats} />
     </div>
   );
 }
