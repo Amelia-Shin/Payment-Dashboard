@@ -1,4 +1,4 @@
-export interface StorsStats {
+export interface MerchantStats {
   totalMerchants: number;
   activeMerchants: number;
   inactiveMerchants: number;
@@ -15,8 +15,7 @@ export interface PaymentStats {
 export interface Payment {
   paymentCode: string;
   mchtCode: string;
-  mchtName: string;
-  amount: number;
+  amount: string;
   currency: string;
   payType: string;
   status: string;
@@ -28,7 +27,19 @@ export interface Merchant {
   mchtName: string;
   status: string;
   bizType: string;
+}
+
+export interface MerchantsDetail {
+  mchtCode: string;
+  mchtName: string;
+  status: string;
+  bizType: string;
+  bizNo: string;
+  address: string;
+  phone: string;
+  email: string;
   registeredAt: string;
+  updatedAt: string;
 }
 
 export type TabType = "dashboard" | "payments" | "merchants";
