@@ -3,6 +3,7 @@ import Header from "./layout/Header";
 import Navigation from "./layout/Navigation";
 import DashboardView from "./dashboard/DashboardView";
 import PaymentsView from "./payments/PaymentsView";
+import MerchantsView from "./merchants/MerchantView";
 
 import type {
   TabType,
@@ -11,30 +12,45 @@ import type {
   MerchantStats,
   PaymentStats,
 } from "../types";
+import {
+  getMerchantsList,
+  getPaymentsList,
+  getMerchantStatusAll,
+} from "../services/api";
 
-import { getMerchantsList, getPaymentsList } from "../services/api";
-
-const PaymentDashboard = () => {
+export default function PaymentDashboard() {
   const [activeTab, setActiveTab] = useState<TabType>("dashboard");
   const [merchants, setMerchants] = useState<Merchant[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // API에서 가져온 코드 목록
+  const [merchantStatusCodes, setMerchantStatusCodes] = useState<
+    Array<{ code: string; description: string }>
+  >([]);
 
   // 데이터 로딩
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
+        setError(null);
 
-        const [merchantsData, paymentsData] = await Promise.all([
-          getMerchantsList(),
-          getPaymentsList(),
-        ]);
+        // 병렬로 API 호출
+        const [merchantsData, paymentsData, merchantStatusData] =
+          await Promise.all([
+            getMerchantsList(),
+            getPaymentsList(),
+            getMerchantStatusAll(),
+          ]);
 
         setMerchants(merchantsData);
         setPayments(paymentsData);
+        setMerchantStatusCodes(merchantStatusData);
       } catch (err) {
         console.error("데이터 로딩 실패:", err);
+        setError("데이터를 불러오는데 실패했습니다.");
       } finally {
         setLoading(false);
       }
@@ -83,6 +99,25 @@ const PaymentDashboard = () => {
     );
   }
 
+  // 에러 발생
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-600 text-5xl mb-4">⚠️</div>
+          <p className="text-gray-900 text-xl font-semibold mb-2">오류 발생</p>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            새로고침
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -106,9 +141,15 @@ const PaymentDashboard = () => {
             merchants={merchants}
           />
         )}
+        {activeTab === "merchants" && (
+          <MerchantsView
+            merchants={merchants}
+            payments={payments}
+            merchantStats={merchantStats}
+            merchantStatusCodes={merchantStatusCodes}
+          />
+        )}
       </main>
     </div>
   );
-};
-
-export default PaymentDashboard;
+}
