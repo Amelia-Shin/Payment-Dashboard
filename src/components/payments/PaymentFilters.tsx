@@ -16,6 +16,8 @@ interface PaymentFiltersProps {
   setStartDate: (value: string) => void;
   endDate: string;
   setEndDate: (value: string) => void;
+  paymentStatusCodes: Array<{ code: string; description: string }>;
+  paymentTypeCodes: Array<{ type: string; description: string }>;
 }
 
 export default function PaymentFilters({
@@ -32,6 +34,8 @@ export default function PaymentFilters({
   setStartDate,
   endDate,
   setEndDate,
+  paymentStatusCodes,
+  paymentTypeCodes,
 }: PaymentFiltersProps) {
   // 필터 초기화
   const handleReset = () => {
@@ -107,10 +111,11 @@ export default function PaymentFilters({
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
             >
               <option value="all">전체</option>
-              <option value="SUCCESS">성공</option>
-              <option value="FAILED">실패</option>
-              <option value="PENDING">대기</option>
-              <option value="CANCELLED">취소</option>
+              {paymentStatusCodes.map((status) => (
+                <option key={status.code} value={status.code}>
+                  {status.description}
+                </option>
+              ))}
             </select>
             <Filter className="absolute right-3 top-2.5 w-5 h-5 text-gray-400 pointer-events-none" />
           </div>
@@ -128,11 +133,11 @@ export default function PaymentFilters({
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none"
             >
               <option value="all">전체</option>
-              <option value="ONLINE">온라인</option>
-              <option value="DEVICE">단말기</option>
-              <option value="MOBILE">모바일</option>
-              <option value="VACT">가상계좌</option>
-              <option value="BILLING">정기결제</option>
+              {paymentTypeCodes.map((type) => (
+                <option key={type.type} value={type.type}>
+                  {type.description}
+                </option>
+              ))}
             </select>
           </div>
         </div>

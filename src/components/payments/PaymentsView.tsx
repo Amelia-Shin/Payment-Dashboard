@@ -7,11 +7,15 @@ interface PaymentsViewProps {
   payments: Payment[];
   paymentStats: PaymentStats;
   merchants: Merchant[];
+  paymentStatusCodes: Array<{ code: string; description: string }>;
+  paymentTypeCodes: Array<{ type: string; description: string }>;
 }
 
 export default function PaymentsView({
   payments,
   merchants,
+  paymentStatusCodes,
+  paymentTypeCodes,
 }: PaymentsViewProps) {
   const [dateRange, setDateRange] = useState("today");
   const [statusFilter, setStatusFilter] = useState<string>("all");
@@ -132,6 +136,8 @@ export default function PaymentsView({
         setStartDate={setStartDate}
         endDate={endDate}
         setEndDate={setEndDate}
+        paymentStatusCodes={paymentStatusCodes}
+        paymentTypeCodes={paymentTypeCodes}
       />
 
       <PaymentTable payments={filteredPayments} merchants={merchants} />

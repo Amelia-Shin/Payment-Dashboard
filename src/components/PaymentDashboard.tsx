@@ -12,9 +12,12 @@ import type {
   MerchantStats,
   PaymentStats,
 } from "../types";
+
 import {
   getMerchantsList,
   getPaymentsList,
+  getPaymentStatusAll,
+  getPaymentTypeAll,
   getMerchantStatusAll,
 } from "../services/api";
 
@@ -25,7 +28,12 @@ export default function PaymentDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // API에서 가져온 코드 목록
+  const [paymentStatusCodes, setPaymentStatusCodes] = useState<
+    Array<{ code: string; description: string }>
+  >([]);
+  const [paymentTypeCodes, setPaymentTypeCodes] = useState<
+    Array<{ type: string; description: string }>
+  >([]);
   const [merchantStatusCodes, setMerchantStatusCodes] = useState<
     Array<{ code: string; description: string }>
   >([]);
@@ -38,15 +46,24 @@ export default function PaymentDashboard() {
         setError(null);
 
         // 병렬로 API 호출
-        const [merchantsData, paymentsData, merchantStatusData] =
-          await Promise.all([
-            getMerchantsList(),
-            getPaymentsList(),
-            getMerchantStatusAll(),
-          ]);
+        const [
+          merchantsData,
+          paymentsData,
+          paymentStatusData,
+          paymentTypeData,
+          merchantStatusData,
+        ] = await Promise.all([
+          getMerchantsList(),
+          getPaymentsList(),
+          getPaymentStatusAll(),
+          getPaymentTypeAll(),
+          getMerchantStatusAll(),
+        ]);
 
         setMerchants(merchantsData);
         setPayments(paymentsData);
+        setPaymentStatusCodes(paymentStatusData);
+        setPaymentTypeCodes(paymentTypeData);
         setMerchantStatusCodes(merchantStatusData);
       } catch (err) {
         console.error("데이터 로딩 실패:", err);
@@ -139,6 +156,8 @@ export default function PaymentDashboard() {
             payments={payments}
             paymentStats={paymentStats}
             merchants={merchants}
+            paymentStatusCodes={paymentStatusCodes}
+            paymentTypeCodes={paymentTypeCodes}
           />
         )}
         {activeTab === "merchants" && (
