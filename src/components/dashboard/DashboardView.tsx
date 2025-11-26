@@ -2,6 +2,7 @@ import SummaryBanner from "./SummaryBanner";
 import MetricsCards from "./MetricsCards";
 import PaymentMethodStats from "./PaymentMethodStats";
 import MerchantStatus from "./MerchanStatus";
+import RecentTransactions from "./RecentTransactions";
 
 import type {
   MerchantStats,
@@ -36,6 +37,8 @@ export default function DashboardView({
         <PaymentMethodStats payments={payments} />
         <MerchantStatus merchants={merchants} />
       </div>
+
+      <RecentTransactions payments={payments} merchants={merchants} />
     </div>
   );
 }
