@@ -97,11 +97,6 @@ export default function MerchantsView({
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="가맹점명 또는 가맹점코드를 검색하세요"
               className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  // Enter 키로도 검색 가능
-                }
-              }}
             />
             <Search className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
             {searchTerm && (
@@ -173,7 +168,7 @@ export default function MerchantsView({
           return (
             <div
               key={merchant.mchtCode}
-              className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow border border-gray-200 overflow-hidden cursor-pointer group"
+              className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow border border-gray-200 overflow-hidden group"
             >
               {/* 카드 헤더 */}
               <div className={`p-6 ${getHeaderBgColor(merchant.status)}`}>
@@ -250,7 +245,7 @@ export default function MerchantsView({
                 {/* 상세보기 버튼 */}
                 <button
                   onClick={() => setSelectedMchtCode(merchant.mchtCode)}
-                  className="w-full mt-6 px-4 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all font-medium group-hover:border-blue-500"
+                  className="w-full mt-6 px-4 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all font-medium cursor-pointer group-hover:border-blue-500"
                 >
                   상세보기
                 </button>

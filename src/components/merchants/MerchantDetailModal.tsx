@@ -81,7 +81,7 @@ export default function MerchantDetailModal({
           <h2 className="text-xl font-bold text-gray-900">가맹점 상세 정보</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
           >
             <X className="w-6 h-6" />
           </button>
@@ -243,11 +243,11 @@ export default function MerchantDetailModal({
           <div className="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex justify-end gap-3">
             <button
               onClick={onClose}
-              className="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+              className="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium cursor-pointer"
             >
               닫기
             </button>
-            <button className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+            <button className="px-6 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer">
               수정하기
             </button>
           </div>
