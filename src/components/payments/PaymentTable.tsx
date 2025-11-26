@@ -56,7 +56,8 @@ export default function PaymentTable({
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {payments.map((payment) => {
-              const fee = Math.round(Number(payment.amount) * 0.025); // 2.5% 수수료
+              const amount = Number(payment.amount);
+              const fee = Math.round(amount * 0.025); // 2.5% 수수료
               const settlementStatus =
                 payment.status === "SUCCESS" ? "정산대기" : "-";
 
@@ -76,7 +77,7 @@ export default function PaymentTable({
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                    {formatCurrency(Number(payment.amount), payment.currency)}
+                    {formatCurrency(amount, payment.currency)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                     {payment.status === "SUCCESS"
