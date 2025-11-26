@@ -1,9 +1,8 @@
 import SummaryBanner from "./SummaryBanner";
 import MetricsCards from "./MetricsCards";
 import PaymentMethodStats from "./PaymentMethodStats";
-import MerchantStatus from "./MerchanStatus";
+import MerchantStatus from "./MerchantStatus";
 import RecentTransactions from "./RecentTransactions";
-
 import type {
   MerchantStats,
   PaymentStats,
@@ -16,13 +15,17 @@ interface DashboardViewProps {
   paymentStats: PaymentStats;
   merchants: Merchant[];
   payments: Payment[];
+  onViewAllTransactions: () => void;
+  onViewAllMerchants: () => void;
 }
 
 export default function DashboardView({
   merchantStats,
   paymentStats,
-  payments,
   merchants,
+  payments,
+  onViewAllTransactions,
+  onViewAllMerchants,
 }: DashboardViewProps) {
   return (
     <div className="space-y-6">
@@ -35,10 +38,14 @@ export default function DashboardView({
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <PaymentMethodStats payments={payments} />
-        <MerchantStatus merchants={merchants} />
+        <MerchantStatus merchants={merchants} onViewAll={onViewAllMerchants} />
       </div>
 
-      <RecentTransactions payments={payments} merchants={merchants} />
+      <RecentTransactions
+        payments={payments}
+        merchants={merchants}
+        onViewAll={onViewAllTransactions}
+      />
     </div>
   );
 }

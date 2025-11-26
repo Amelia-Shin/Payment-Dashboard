@@ -36,7 +36,7 @@ export async function getMerchantsList(): Promise<Merchant[]> {
   return fetchApi<Merchant[]>("/merchants/list");
 }
 
-// 거래 내역 조회
+// 거래 내역 조회 (최신순)
 export async function getPaymentsList(): Promise<Payment[]> {
-  return fetchApi<Payment[]>("/payments/list");
+  return (await fetchApi<Payment[]>("/payments/list")).reverse();
 }

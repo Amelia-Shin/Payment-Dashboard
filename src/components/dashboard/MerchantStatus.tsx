@@ -1,19 +1,24 @@
-// src/components/dashboard/MerchantStatus.tsx
-
 import { Users, ChevronRight } from "lucide-react";
 import type { Merchant } from "../../types";
 import { getStatusColor, getStatusText } from "../../utils/formatters";
 
 interface MerchantStatusProps {
   merchants: Merchant[];
+  onViewAll?: () => void;
 }
 
-export default function MerchantStatus({ merchants }: MerchantStatusProps) {
+export default function MerchantStatus({
+  merchants,
+  onViewAll,
+}: MerchantStatusProps) {
   return (
     <div className="bg-white rounded-lg shadow p-6 border border-gray-200">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-gray-900">가맹점 현황</h3>
-        <button className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center">
+        <button
+          onClick={onViewAll}
+          className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center"
+        >
           전체보기
           <ChevronRight className="w-4 h-4 ml-1" />
         </button>

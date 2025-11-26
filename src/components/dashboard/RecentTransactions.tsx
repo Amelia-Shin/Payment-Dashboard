@@ -1,5 +1,3 @@
-// src/components/dashboard/RecentTransactions.tsx
-
 import { CreditCard, ChevronRight } from "lucide-react";
 import type { Payment, Merchant } from "../../types";
 import {
@@ -13,11 +11,13 @@ import {
 interface RecentTransactionsProps {
   payments: Payment[];
   merchants: Merchant[];
+  onViewAll?: () => void;
 }
 
 export default function RecentTransactions({
   payments,
   merchants,
+  onViewAll,
 }: RecentTransactionsProps) {
   // 가맹점 코드로 가맹점명 찾기
   const getMerchantName = (mchtCode: string): string => {
@@ -33,7 +33,10 @@ export default function RecentTransactions({
             <h3 className="text-lg font-semibold text-gray-900">최근 거래</h3>
             <p className="text-sm text-gray-500 mt-1">최근 거래 내역</p>
           </div>
-          <button className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center">
+          <button
+            onClick={onViewAll}
+            className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors flex items-center"
+          >
             전체 보기
             <ChevronRight className="w-4 h-4 ml-1" />
           </button>

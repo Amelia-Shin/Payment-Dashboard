@@ -1,13 +1,13 @@
-// src/components/PaymentDashboard.tsx
-
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./layout/Header";
 import Navigation from "./layout/Navigation";
 import DashboardView from "./dashboard/DashboardView";
+import PaymentsView from "./payments/PaymentsView";
+
 import type {
+  TabType,
   Merchant,
   Payment,
-  TabType,
   MerchantStats,
   PaymentStats,
 } from "../types";
@@ -54,10 +54,9 @@ const PaymentDashboard = () => {
   const paymentStats: PaymentStats = (() => {
     const successPayments = payments.filter((p) => p.status === "SUCCESS");
     const totalAmount = successPayments.reduce(
-      (sum, p) => sum + Number(p.amount),
+      (sum, p) => Number(sum + p.amount),
       0
     );
-
     const successRate =
       payments.length > 0
         ? ((successPayments.length / payments.length) * 100).toFixed(1)
@@ -96,6 +95,15 @@ const PaymentDashboard = () => {
             paymentStats={paymentStats}
             merchants={merchants}
             payments={payments}
+            onViewAllTransactions={() => setActiveTab("payments")}
+            onViewAllMerchants={() => setActiveTab("merchants")}
+          />
+        )}
+        {activeTab === "payments" && (
+          <PaymentsView
+            payments={payments}
+            paymentStats={paymentStats}
+            merchants={merchants}
           />
         )}
       </main>
