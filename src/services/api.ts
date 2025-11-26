@@ -1,4 +1,4 @@
-import type { Merchant, Payment } from "../types";
+import type { Merchant, MerchantsDetail, Payment } from "../types";
 
 const API_BASE_URL = "https://recruit.paysbypays.com/api/v1";
 
@@ -39,11 +39,11 @@ export async function getMerchantsList(): Promise<Merchant[]> {
 // 가맹점 상세 조회
 export async function getMerchantDetails(
   mchtCode?: string
-): Promise<Merchant[]> {
+): Promise<MerchantsDetail[]> {
   const endpoint = mchtCode
     ? `/merchants/details?mchtCode=${mchtCode}`
     : "/merchants/details";
-  return fetchApi<Merchant[]>(endpoint);
+  return fetchApi<MerchantsDetail[]>(endpoint);
 }
 
 // 거래 내역 조회 (최신순)

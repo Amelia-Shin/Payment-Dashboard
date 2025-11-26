@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Users, Search, DollarSign, BarChart3 } from "lucide-react";
 import type { Merchant, Payment, MerchantStats } from "../../types";
 import { formatCurrency } from "../../utils/formatters";
+import MerchantDetailModal from "./MerchantDetailModal";
 
 interface MerchantsViewProps {
   merchants: Merchant[];
@@ -18,6 +19,7 @@ export default function MerchantsView({
 }: MerchantsViewProps) {
   const [merchantType, setMerchantType] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedMchtCode, setSelectedMchtCode] = useState<string | null>(null);
 
   // 상태별 가맹점 필터링
   const filteredMerchants = merchants.filter((m) => {
@@ -246,7 +248,10 @@ export default function MerchantsView({
                 </div>
 
                 {/* 상세보기 버튼 */}
-                <button className="w-full mt-6 px-4 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all font-medium group-hover:border-blue-500">
+                <button
+                  onClick={() => setSelectedMchtCode(merchant.mchtCode)}
+                  className="w-full mt-6 px-4 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-lg hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 transition-all font-medium group-hover:border-blue-500"
+                >
                   상세보기
                 </button>
               </div>
@@ -345,6 +350,14 @@ export default function MerchantsView({
           </div>
         </div>
       </div>
+
+      {/* 가맹점 상세 모달 */}
+      {selectedMchtCode && (
+        <MerchantDetailModal
+          mchtCode={selectedMchtCode}
+          onClose={() => setSelectedMchtCode(null)}
+        />
+      )}
     </div>
   );
 }
