@@ -54,7 +54,7 @@ const PaymentDashboard = () => {
   const paymentStats: PaymentStats = (() => {
     const successPayments = payments.filter((p) => p.status === "SUCCESS");
     const totalAmount = successPayments.reduce(
-      (sum, p) => Number(sum + p.amount),
+      (sum, p) => sum + Number(p.amount),
       0
     );
     const successRate =
