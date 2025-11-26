@@ -1,77 +1,64 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
+# Payment Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+결제 데이터 관리를 위한 대시보드 애플리케이션
 
-Currently, two official plugins are available:
+## 기술 스택
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **프레임워크**: React 19.2.0 + TypeScript
+- **빌드 도구**: Vite 7.2.4
+- **라우팅**: React Router DOM 7.9.6
+- **스타일링**: Tailwind CSS 4.1.17
 
-## React Compiler
+## 사용한 CSS 프레임워크 및 라이브러리
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Tailwind CSS
 
-## Expanding the ESLint configuration
+- **출처**: https://tailwindcss.com
+- **버전**: 4.1.17
+- **사용 목적**: 유틸리티 기반 CSS 프레임워크로 빠른 UI 개발
+- **적용 범위**: 전체 컴포넌트 스타일링
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### lucide-react
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **출처**: https://lucide.dev
+- **사용 목적**: 아이콘 라이브러리
+- **적용 범위**: 대시보드 전체 아이콘 (CreditCard, ChevronRight 등)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 디자인 및 구현 특징
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 디자인 의도 및 UI/UX 포인트
+
+1. **직관적인 정보 전달**: 카드 기반 레이아웃으로 정보를 명확하게 그룹화하고, 색상 코딩(성공=초록, 실패=빨강)을 통해 거래 상태를 즉시 파악할 수 있도록 설계
+
+2. **계층적 정보 구조**: 대시보드 메인 화면에서 전체 현황(메트릭, 통계)을 한눈에 보고, 상세 정보는 각 섹션별로 구분하여 인지 부담 최소화
+
+3. **일관된 인터랙션**: hover 효과와 transition을 통일하여 클릭 가능한 요소를 명확히 표시하고, 사용자 경험의 일관성 유지
+
+## 실행 방법
+
+```bash
+# 의존성 설치
+npm install
+
+# 개발 서버 실행
+npm run dev
+
+# 프로덕션 빌드
+npm run build
+
+# 빌드 결과 미리보기
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 프로젝트 구조
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
-=======
-# Payment-Dashboard
->>>>>>> 639c0459c0d74dca2301db6c6e6a63718c863b22
+src/
+├── components/
+│   ├── dashboard/      # 대시보드 관련 컴포넌트
+│   ├── merchants/      # 가맹점 관련 컴포넌트
+│   └── payments/       # 결제 관련 컴포넌트
+├── services/           # API 서비스
+├── types/              # TypeScript 타입 정의
+└── utils/              # 유틸리티 함수 (포맷터 등)
+```
